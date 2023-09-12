@@ -166,7 +166,7 @@ MQTT_PORT = 8082
 
 # Credenciales para el usuario suscriptor del bróker MQTT
 MQTT_USER = "admin"
-MQTT_PASSWORD = "admin"
+MQTT_PASSWORD = "admin1234"
 
 # Credenciales para el usuario publicador del bróker MQTT
 MQTT_USER_PUB = "admin2"
@@ -177,7 +177,7 @@ MQTT_PASSWORD_PUB = "admin2"
 TOPIC = "+/+/+/+/out"
 
 # Opción para habilitar la transmisión de mensajes segura
-MQTT_USE_TLS = False
+MQTT_USE_TLS = True
 
 # Ubicación del archivo de certificado para conexión TLS con el bróker MQTT
 CA_CRT_FILE = "ssl/ca.crt"
