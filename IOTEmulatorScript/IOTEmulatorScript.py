@@ -55,14 +55,14 @@ MEASURE_INTERVAL = 2
 Valor medio de la temperatura en grados Celsius
 que el emulador genera y la variación de la temperatura
 '''
-TEMPERATURE_VALUE = 21.0
+TEMPERATURE_VALUE = 25.0
 TEMPERATURE_VARIATION = 3.0
 
 '''
 Valor medio de la humedad en porcentaje
 que el emulador genera y la variación de la humedad
 '''
-MOISTURE_VALUE = 60.0
+MOISTURE_VALUE = 70.0
 MOISTURE_VARIATION = 5.0
 
 
