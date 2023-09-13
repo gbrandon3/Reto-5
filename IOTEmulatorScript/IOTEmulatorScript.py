@@ -28,7 +28,7 @@ import paho.mqtt.client as mqtt
 '''
 Dirección IP y puerto del servidor MQTT
 '''
-MQTT_HOST = "34.236.237.82"  # "ip.maquina.mqtt"
+MQTT_HOST = "44.193.9.120"  # "ip.maquina.mqtt"
 MQTT_PORT = 8082
 
 '''
@@ -41,7 +41,7 @@ MQTT_PASSWORD = "contrasena1"  # "ContraseñaMQTT"
 '''
 Topicos de suscripción y publicación
 '''
-BASE_TOPIC = "colombia/cundinamarca/soacha/" + \
+BASE_TOPIC = "colombia/cordoba/monteria/" + \
     MQTT_USER  # "<país>/<estado>/<ciudad>/" + MQTT_USER
 MQTT_PUB_TOPIC = BASE_TOPIC + "/out"
 MQTT_SUB_TOPIC = BASE_TOPIC + "/in"
@@ -53,7 +53,7 @@ MEASURE_INTERVAL = 2
 
 '''
 Valor medio de la temperatura en grados Celsius
-que el emulador genera y la variación de la temperatura
+que el e    mulador genera y la variación de la temperatura
 '''
 TEMPERATURE_VALUE = 25.0
 TEMPERATURE_VARIATION = 3.0
@@ -167,8 +167,6 @@ def measure_data():
 
     temperature = measure_temperature()
     moisture = measure_moisture()
-    print("\tTemperatura: {}°C".format(temperature))
-    print("\tHumedad: {}%".format(moisture))
     mqtt_publish(MQTT_PUB_TOPIC, json.dumps({
         "temperatura": temperature,
         "humedad": moisture

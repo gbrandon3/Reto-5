@@ -88,8 +88,10 @@ def analyze_data():
                 'station__location__state__name',
                 'station__location__country__name')
     alerts = 0
+    alert = False
+    message = "ALERT "
     for item in aggregation:
-        alert = False
+        
 
         variable = item["measurement__name"]
         max_value = item["measurement__max_value"] or 0
@@ -102,13 +104,15 @@ def analyze_data():
 
         if item["check_value"] > max_value or item["check_value"] < min_value:
             alert = True
-
-        if alert:
-            message = "ALERT {} {} {}".format(variable, min_value, max_value)
-            topic = '{}/{}/{}/{}/in'.format(country, state, city, user)
-            print(datetime.now(), "Sending alert to {} {}".format(topic, variable))
-            client.publish(topic, message)
+            message = message+"{}, Max: {}, Min: {}, Valor: {},".format(variable, min_value, max_value,item["check_value"])
             alerts += 1
+
+    if alert:
+       
+        topic = '{}/{}/{}/{}/in'.format(country, state, city, user)
+        print(datetime.now(), "Sending alert to {}".format(topic))
+        client.publish(topic, message[:-1])
+            
 
     print(len(aggregation), "dispositivos revisados")
     print(alerts, "alertas enviadas")
@@ -160,7 +164,6 @@ def start_cron():
     Inicia el cron que se encarga de ejecutar la función analyze_data cada 5 minutos.
     '''
     print("Iniciando cron...")
-    schedule.every(2).minutes.do(analyze_data2)
     schedule.every(5).minutes.do(analyze_data)
 
     print("Servicio de control iniciado")
