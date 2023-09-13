@@ -28,13 +28,13 @@ import paho.mqtt.client as mqtt
 '''
 Dirección IP y puerto del servidor MQTT
 '''
-MQTT_HOST = "44.203.103.201"  # "ip.maquina.mqtt"
+MQTT_HOST = "34.236.237.82"  # "ip.maquina.mqtt"
 MQTT_PORT = 8082
 
 '''
 Usuario y contraseña para la conexión MQTT
 '''
-MQTT_USER = "user1"  # "UsuarioMQTT"
+MQTT_USER = "b.gonzalezp"  # "UsuarioMQTT"
 MQTT_PASSWORD = "contrasena1"  # "ContraseñaMQTT"
 
 
@@ -77,6 +77,14 @@ def process_message(msg: str):
         print("############################################################")
         print("############################################################")
         print("              ALERTA: {}                     ".format(msg))
+        print("############################################################")
+        print("############################################################")
+        print("############################################################")
+    if("Notificacion" in msg):
+        print("############################################################")
+        print("############################################################")
+        print("############################################################")
+        print("              Notificacion: {}                     ".format(msg))
         print("############################################################")
         print("############################################################")
         print("############################################################")
@@ -156,16 +164,15 @@ def measure_data():
     '''
     Función de medición y envío de datos
     '''
-    print("Midiendo...")
+
     temperature = measure_temperature()
     moisture = measure_moisture()
-    print("\tTemperatura: {}°C".format(temperature))
-    print("\tHumedad: {}%".format(moisture))
+  
     mqtt_publish(MQTT_PUB_TOPIC, json.dumps({
         "temperatura": temperature,
         "humedad": moisture
     }))
-    print("Datos enviados")
+
 
 
 def start_measurement():
