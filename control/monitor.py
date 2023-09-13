@@ -18,7 +18,7 @@ def analyze_data2():
     # Compara el promedio con los valores límite que están en la base de datos para esa variable.
     # Si el promedio se excede de los límites, se envia un mensaje de alerta.
 
-    print("Calculando alertas..")
+    print("Calculando notifaciones")
 
     data = Data.objects.filter(
         base_time__gte=datetime.now() - timedelta(minutes=2))
@@ -35,6 +35,7 @@ def analyze_data2():
                 'station__location__state__name',
                 'station__location__country__name')
     alerts = 0
+    print(len(item))
     for item in aggregation:
         alert = False
 
@@ -46,8 +47,11 @@ def analyze_data2():
         state = item['station__location__state__name']
         city = item['station__location__city__name']
         user = item['station__user__username']
+        print(item["check_value"])
         valor_medio = (max_value + min_value) / 2.0
+        print(valor_medio)
         if item["check_value"] > valor_medio:
+            print("Entro")
             alert = True
 
         if alert:

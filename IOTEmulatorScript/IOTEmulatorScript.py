@@ -167,7 +167,8 @@ def measure_data():
 
     temperature = measure_temperature()
     moisture = measure_moisture()
-  
+    print("\tTemperatura: {}°C".format(temperature))
+    print("\tHumedad: {}%".format(moisture))
     mqtt_publish(MQTT_PUB_TOPIC, json.dumps({
         "temperatura": temperature,
         "humedad": moisture
