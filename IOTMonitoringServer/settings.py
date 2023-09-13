@@ -19,9 +19,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 
-MQTT_HOST = "44.193.8.74"
-ALLOWED_HOSTS = ["localhost", "3.236.29.151"]
-DB_IP="3.237.236.43"
+MQTT_HOST = "44.203.103.201"
+ALLOWED_HOSTS = ["localhost", "34.205.8.4"]
+DB_IP="44.192.42.245"
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
@@ -177,7 +177,7 @@ MQTT_PASSWORD_PUB = "admin2"
 TOPIC = "+/+/+/+/out"
 
 # Opción para habilitar la transmisión de mensajes segura
-MQTT_USE_TLS = True
+MQTT_USE_TLS = False
 
 # Ubicación del archivo de certificado para conexión TLS con el bróker MQTT
 CA_CRT_FILE = "ssl/ca.crt"
