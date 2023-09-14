@@ -35,9 +35,10 @@ def analyze_data2():
                 'station__location__state__name',
                 'station__location__country__name')
     alerts = 0
-    message="NOTIFICACION"
+    message="NOTIFICACION: "
+    alert = False
     for item in aggregation:
-        alert = False
+        
 
         variable = item["measurement__name"]
         max_value = item["measurement__max_value"] or 0
@@ -89,7 +90,7 @@ def analyze_data():
                 'station__location__country__name')
     alerts = 0
     alert = False
-    message = "ALERT "
+    message = "ALERT: "
     for item in aggregation:
         
 

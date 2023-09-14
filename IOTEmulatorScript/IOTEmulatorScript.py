@@ -28,7 +28,7 @@ import paho.mqtt.client as mqtt
 '''
 Dirección IP y puerto del servidor MQTT
 '''
-MQTT_HOST = "44.198.186.41"  # "ip.maquina.mqtt"
+MQTT_HOST = "44.205.22.134"  # "ip.maquina.mqtt"
 MQTT_PORT = 8082
 
 '''
@@ -55,8 +55,8 @@ MEASURE_INTERVAL = 2
 Valor medio de la temperatura en grados Celsius
 que el e    mulador genera y la variación de la temperatura
 '''
-TEMPERATURE_VALUE = 25.0
-TEMPERATURE_VARIATION = 3.0
+TEMPERATURE_VALUE = 27.0
+TEMPERATURE_VARIATION = 1.0
 
 '''
 Valor medio de la humedad en porcentaje
@@ -70,7 +70,6 @@ def process_message(msg: str):
     '''
     Procesar mensaje recibido
     '''
-    print("Procesando mensaje: " + msg)
 
     if ("ALERT" in msg):
         print("############################################################")
@@ -80,7 +79,7 @@ def process_message(msg: str):
         print("############################################################")
         print("############################################################")
         print("############################################################")
-    if("Notificacion" in msg):
+    if("NOTIFICACION" in msg):
         print("############################################################")
         print("############################################################")
         print("############################################################")
