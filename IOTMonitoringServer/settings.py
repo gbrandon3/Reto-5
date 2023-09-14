@@ -19,7 +19,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 
-MQTT_HOST = "44.205.22.134  "
+MQTT_HOST = "44.205.22.134"
 ALLOWED_HOSTS = ["localhost", "34.239.146.186"]
 DB_IP="3.239.217.223"
 # Quick-start development settings - unsuitable for production
