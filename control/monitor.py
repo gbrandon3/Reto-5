@@ -35,7 +35,7 @@ def analyze_data2():
                 'station__location__state__name',
                 'station__location__country__name')
     alerts = 0
-    print(len(aggregation))
+    message="NOTIFICACION"
     for item in aggregation:
         alert = False
 
@@ -47,24 +47,24 @@ def analyze_data2():
         state = item['station__location__state__name']
         city = item['station__location__city__name']
         user = item['station__user__username']
-        print(item["check_value"])
         valor_medio = (max_value + min_value) / 2.0
-        print(valor_medio)
-        if item["check_value"] > valor_medio:
-            print("Entro")
+        
+        if item["check_value"] != valor_medio and item["check_value"] > max_value or item["check_value"] < min_value:
+            resultado="Baja"if item['check_value']<valor_medio else"Alta"
+            message=message+"{} promedio:{},".format(variable,resultado)
             alert = True
-
-        if alert:
-            
-            message = "Notificacion Valor promedio de {}: {} - Supera la media ({})".format(
-            variable, item["check_value"], valor_medio)
-            topic = '{}/{}/{}/{}/in'.format(country, state, city, user)
-            print(datetime.now(), "Sending notification to {} {}".format(topic, variable))
-            client.publish(topic, message)
             alerts += 1
 
+    if alert:
+            
+      
+        topic = '{}/{}/{}/{}/in'.format(country, state, city, user)
+        print(datetime.now(), "Sending notification to {} {}".format(topic, variable))
+        client.publish(topic, message[:-1])
+        
+
     print(len(aggregation), "dispositivos revisados")
-    print(alerts, "alertas enviadas")
+    print(alerts, "Notificaciones enviadas")
 
 def analyze_data():
     # Consulta todos los datos de la última hora, los agrupa por estación y variable
@@ -104,7 +104,7 @@ def analyze_data():
 
         if item["check_value"] > max_value or item["check_value"] < min_value:
             alert = True
-            message = message+"{}, Max: {}, Min: {}, Valor: {},".format(variable, min_value, max_value,item["check_value"])
+            message = message+"{} Fuera del rango,".format(variable)
             alerts += 1
 
     if alert:
@@ -165,7 +165,7 @@ def start_cron():
     '''
     print("Iniciando cron...")
     schedule.every(1).minutes.do(analyze_data)
-    ##schedule.every(2).minute.do(analyze_data2)
+    schedule.every(2).minute.do(analyze_data2)
     print("Servicio de control iniciado")
     while 1:
         schedule.run_pending()
