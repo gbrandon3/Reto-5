@@ -21,7 +21,7 @@ def analyze_data2():
     print("Calculando notifaciones")
 
     data = Data.objects.filter(
-        base_time__gte=datetime.now() - timedelta(minutes=2))
+        base_time__gte=datetime.now() - timedelta(hours=1))
     aggregation = data.annotate(check_value=Avg('avg_value')) \
         .select_related('station', 'measurement') \
         .select_related('station__user', 'station__location') \
@@ -164,8 +164,8 @@ def start_cron():
     Inicia el cron que se encarga de ejecutar la función analyze_data cada 5 minutos.
     '''
     print("Iniciando cron...")
-    schedule.every(5).minutes.do(analyze_data)
-
+    schedule.every(1).minutes.do(analyze_data)
+    ##schedule.every(2).minute.do(analyze_data2)
     print("Servicio de control iniciado")
     while 1:
         schedule.run_pending()
