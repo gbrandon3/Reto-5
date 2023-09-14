@@ -52,7 +52,7 @@ def analyze_data2():
         
         if item["check_value"] != valor_medio and (item["check_value"] <= max_value and item["check_value"] >= min_value):
             resultado="Baja"if item['check_value']<valor_medio else"Alta"
-            message=message+"{} promedio {},".format(variable,resultado)
+            message=message+"{} {},".format(variable,resultado)
             alert = True
             alerts += 1
 

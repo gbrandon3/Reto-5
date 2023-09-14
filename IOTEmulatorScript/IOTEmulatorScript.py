@@ -55,7 +55,7 @@ MEASURE_INTERVAL = 2
 Valor medio de la temperatura en grados Celsius
 que el e    mulador genera y la variación de la temperatura
 '''
-TEMPERATURE_VALUE = 27.0
+TEMPERATURE_VALUE = 26.0
 TEMPERATURE_VARIATION = 1.0
 
 '''
@@ -166,6 +166,8 @@ def measure_data():
 
     temperature = measure_temperature()
     moisture = measure_moisture()
+    print("\tTemperatura: {}°C".format(temperature))
+    print("\tHumedad: {}%".format(moisture))
     mqtt_publish(MQTT_PUB_TOPIC, json.dumps({
         "temperatura": temperature,
         "humedad": moisture
