@@ -20,7 +20,7 @@
 // Intervalo en segundo de las mediciones
 #define MEASURE_INTERVAL 2
 // Duración aproximada en la pantalla de las alertas que se reciban
-#define ALERT_DURATION 30  
+#define ALERT_DURATION 60  
 // Pin del led
 #define LEDT D1
 #define LEDH D0
@@ -54,7 +54,7 @@ const char pass[] = "78697312";  // Cambia por la contraseña de tu red WiFi
 
 // Conexión a Mosquitto
 #define USER "b.gonzalezp"                 // Cambia por el usuario MQTT que hayas creado
-const char MQTT_HOST[] = "44.205.22.134";  // Cambia por la IP del bróker MQTT que estés usando
+const char MQTT_HOST[] = "44.204.144.76";  // Cambia por la IP del bróker MQTT que estés usando
 const int MQTT_PORT = 8082;                // Puerto MQTT predeterminado
 const char MQTT_USER[] = USER;
 // Contraseña de MQTT
@@ -74,6 +74,7 @@ time_t now;
 long long int measureTime = millis();
 // Tiempo en que inició la última alerta
 long long int alertTime = millis();
+long long int notiTime = millis();
 // Mensaje para mostrar en la pantalla
 String alert = "";
 String noti="";
@@ -290,15 +291,15 @@ bool checkAlert() {
 String checkNoti() {
   String message = "OK";
 
-  if (alert.length() != 0) {
+  if (noti.length() != 0) {
 
 
     message = noti;
-    if ((millis() - alertTime) >= ALERT_DURATION * 1000) {
+    if ((millis() - notiTime) >= ALERT_DURATION * 1000) {
 
-      alert = "";
+      noti = "";
 
-      alertTime = millis();
+      notiTime = millis();
     }
   }
   return message;
@@ -329,8 +330,9 @@ void receivedCallback(char *topic, byte *payload, unsigned int length) {
   for (int i = 0; i < length; i++) {
     data += String((char)payload[i]);
   }
-  if(data.indexOf("NOTIFICACION")){
+  if(data.indexOf("NOTIFICACION")>=0){
     noti=data;
+    Serial.print(noti);
   }
   if (data.indexOf("ALERT") >= 0) {
 
@@ -474,7 +476,7 @@ void loop() {
   checkWiFi();
 
   String message = checkNoti();
-  bool noti=checkAlert();
+  bool alert=checkAlert();
   measure();
 
   display.clearDisplay();
@@ -483,6 +485,6 @@ void loop() {
   displayHeader();
   displayMeasures();
   displayMessage(message);
-  displayAlert(noti);
+  displayAlert(alert);
   display.display();
 }
